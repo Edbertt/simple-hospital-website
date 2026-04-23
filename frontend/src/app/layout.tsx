@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Sidebar from "@/component/sidebar/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,62 +28,100 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <main className="min-h-screen bg-white text-slate-800">
+        <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+            <div>
+              <h1 className="text-2xl font-bold text-sky-700">MediCare Hospital</h1>
+              <p className="text-xs text-slate-500">Trusted care for your family</p>
+            </div>
+
+            <nav className="hidden gap-6 md:flex">
+              <a href="#home" className="text-sm font-medium hover:text-sky-700">
+                Home
+              </a>
+              <a href="/about" className="text-sm font-medium hover:text-sky-700">
+                About
+              </a>
+              <a href="/department" className="text-sm font-medium hover:text-sky-700">
+                Department
+              </a>
+              <a href="#doctors" className="text-sm font-medium hover:text-sky-700">
+                Doctors
+              </a>
+              <a href="#contact" className="text-sm font-medium hover:text-sky-700">
+                Contact
+              </a>
+            </nav>
+
+            <a
+              href="#login"
+              className="rounded-xl bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-sky-800"
+            >
+              Login
+            </a>
+          </div>
+        </header>
       
-      <body className="min-h-full flex flex-col">{children}</body>
+        <body className="min-h-full flex flex-col">
+            {children}
+ 
+        </body>
 
-      <footer id="contact" className="bg-slate-900 text-slate-300">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-3">
-          <div>
-            <h4 className="text-xl font-bold text-white">MediCare Hospital</h4>
-            <p className="mt-4 text-sm leading-6 text-slate-400">
-              123 Health Street, Medical City
-              <br />
-              Phone: +1 (234) 567-890
-              <br />
-              Email: info@medicarehospital.com
-            </p>
+        <footer id="contact" className="bg-slate-900 text-slate-300">
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-3">
+            <div>
+              <h4 className="text-xl font-bold text-white">MediCare Hospital</h4>
+              <p className="mt-4 text-sm leading-6 text-slate-400">
+                123 Health Street, Medical City
+                <br />
+                Phone: +1 (234) 567-890
+                <br />
+                Email: info@medicarehospital.com
+              </p>
+            </div>
+
+            <div>
+              <h5 className="font-semibold text-white">Quick Links</h5>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li>
+                  <a href="#home" className="hover:text-white">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="#department" className="hover:text-white">
+                    Department
+                  </a>
+                </li>
+                <li>
+                  <a href="#doctors" className="hover:text-white">
+                    Doctors
+                  </a>
+                </li>
+                <li>
+                  <a href="#about" className="hover:text-white">
+                    About
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="font-semibold text-white">Opening Hours</h5>
+              <ul className="mt-4 space-y-2 text-sm text-slate-400">
+                <li>Mon - Fri: 8:00 AM - 8:00 PM</li>
+                <li>Saturday: 9:00 AM - 5:00 PM</li>
+                <li>Sunday: Emergency Only</li>
+              </ul>
+            </div>
           </div>
 
-          <div>
-            <h5 className="font-semibold text-white">Quick Links</h5>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <a href="#home" className="hover:text-white">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#department" className="hover:text-white">
-                  Department
-                </a>
-              </li>
-              <li>
-                <a href="#doctors" className="hover:text-white">
-                  Doctors
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-white">
-                  About
-                </a>
-              </li>
-            </ul>
+          <div className="border-t border-slate-800 py-4 text-center text-sm text-slate-500">
+            © 2026 MediCare Hospital. All rights reserved.
           </div>
-
-          <div>
-            <h5 className="font-semibold text-white">Opening Hours</h5>
-            <ul className="mt-4 space-y-2 text-sm text-slate-400">
-              <li>Mon - Fri: 8:00 AM - 8:00 PM</li>
-              <li>Saturday: 9:00 AM - 5:00 PM</li>
-              <li>Sunday: Emergency Only</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="border-t border-slate-800 py-4 text-center text-sm text-slate-500">
-          © 2026 MediCare Hospital. All rights reserved.
-        </div>
-      </footer>
+        </footer>
+      </main>
     </html>
   );
 }

@@ -4,40 +4,6 @@ import ServiceCard from "@/component/service-cards/ServiceCard";
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-slate-800">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div>
-            <h1 className="text-2xl font-bold text-sky-700">MediCare Hospital</h1>
-            <p className="text-xs text-slate-500">Trusted care for your family</p>
-          </div>
-
-          <nav className="hidden gap-6 md:flex">
-            <a href="#home" className="text-sm font-medium hover:text-sky-700">
-              Home
-            </a>
-            <a href="#about" className="text-sm font-medium hover:text-sky-700">
-              About
-            </a>
-            <a href="#department" className="text-sm font-medium hover:text-sky-700">
-              Department
-            </a>
-            <a href="#doctors" className="text-sm font-medium hover:text-sky-700">
-              Doctors
-            </a>
-            <a href="#contact" className="text-sm font-medium hover:text-sky-700">
-              Contact
-            </a>
-          </nav>
-
-          <a
-            href="#login"
-            className="rounded-xl bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-sky-800"
-          >
-            Login
-          </a>
-        </div>
-      </header>
 
       {/* Hero */}
       <section

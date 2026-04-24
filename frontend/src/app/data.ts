@@ -5,8 +5,11 @@ export type Service = {
 }
 
 export type Doctor = {
+  id: string
   name: string
   specialty: string
+  department: string
+  experience: string
 }
 
 export type Department = {
@@ -43,16 +46,46 @@ export const services: Service[] = [
 
 export const doctors: Doctor[] = [
   {
+    id: "sarah-johnson",
     name: "Dr. Sarah Johnson",
     specialty: "Cardiologist",
+    department: "Cardiology",
+    experience: "12 Years",
   },
   {
+    id: "michael-lee",
     name: "Dr. Michael Lee",
     specialty: "Pediatrician",
+    department: "Pediatrics",
+    experience: "9 Years",
   },
   {
+    id: "aisha-rahman",
     name: "Dr. Aisha Rahman",
     specialty: "General Surgeon",
+    department: "Surgery",
+    experience: "15 Years",
+  },
+  {
+    id: "daniel-wong",
+    name: "Dr. Daniel Wong",
+    specialty: "Neurologist",
+    department: "Neurology",
+    experience: "11 Years",
+  },
+  {
+    id: "emily-clark",
+    name: "Dr. Emily Clark",
+    specialty: "Dermatologist",
+    department: "Dermatology",
+    experience: "8 Years",
+  },
+  {
+    id: "james-wilson",
+    name: "Dr. James Wilson",
+    specialty: "Orthopedic Surgeon",
+    department: "Orthopedics",
+    experience: "14 Years",
   },
 ]
 

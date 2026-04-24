@@ -1,4 +1,10 @@
 import { departments } from "@/app/data"; // Assuming you have a list of departments in data.ts
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Hospital Website - Department",
+  description: "This is department page of simple hospital website for demostration",
+};
 
 export default function DepartmentPage() {
   return (

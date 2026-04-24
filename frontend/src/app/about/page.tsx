@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { doctors } from "@/app/data"
+
+export const metadata: Metadata = {
+  title: "Hospital Website - About",
+  description: "This is profile page of simple hospital website for demostration",
+};
 
 export default function AboutUs() {
   return (

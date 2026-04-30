@@ -84,23 +84,23 @@ export default function RootLayout({
               <h5 className="font-semibold text-white">Quick Links</h5>
               <ul className="mt-4 space-y-2 text-sm">
                 <li>
-                  <a href="#home" className="hover:text-white">
+                  <a href="/" className="text-sm font-medium hover:text-sky-700">
                     Home
                   </a>
                 </li>
                 <li>
-                  <a href="#department" className="hover:text-white">
+                  <a href="/about" className="text-sm font-medium hover:text-sky-700">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="/department" className="text-sm font-medium hover:text-sky-700">
                     Department
                   </a>
                 </li>
                 <li>
-                  <a href="#doctors" className="hover:text-white">
+                  <a href="/doctor" className="text-sm font-medium hover:text-sky-700">
                     Doctors
-                  </a>
-                </li>
-                <li>
-                  <a href="#about" className="hover:text-white">
-                    About
                   </a>
                 </li>
               </ul>

@@ -13,8 +13,12 @@ export type Doctor = {
 }
 
 export type Department = {
-  name: string;
-  description: string;
+  id: string
+  name: string
+  description: string
+  headDoctor: string
+  totalDoctors: number
+  status: string
 }
 
 export const services: Service[] = [
@@ -91,28 +95,39 @@ export const doctors: Doctor[] = [
 
 export const departments: Department[] = [
   {
+    id: "cardiology",
     name: "Cardiology",
     description:
-      "Our cardiology department provides advanced heart care, from diagnostic testing to complex surgeries and long-term management of heart conditions.",
+      "Provides diagnosis, treatment, and prevention of heart and vascular diseases.",
+    headDoctor: "Dr. Sarah Johnson",
+    totalDoctors: 5,
+    status: "Active",
   },
   {
+    id: "pediatrics",
     name: "Pediatrics",
     description:
-      "Our pediatrics department is dedicated to the health and well-being of children, from newborns to adolescents, with specialized care for their unique needs.",
+      "Offers medical care for infants, children, and adolescents.",
+    headDoctor: "Dr. Michael Lee",
+    totalDoctors: 4,
+    status: "Active",
   },
   {
-    name: "Emergency Care",
+    id: "surgery",
+    name: "General Surgery",
     description:
-      "Our emergency care department is open 24/7 to provide immediate treatment for urgent health conditions, ensuring rapid response and expert care.",
+      "Handles surgical procedures, pre-operative care, and post-operative recovery.",
+    headDoctor: "Dr. Aisha Rahman",
+    totalDoctors: 6,
+    status: "Active",
   },
   {
-    name: "Laboratory",
+    id: "neurology",
+    name: "Neurology",
     description:
-      "The laboratory department offers a full range of diagnostic tests, including blood work, imaging, and pathology, to help diagnose and monitor health conditions.",
+      "Focuses on disorders of the brain, nerves, spine, and nervous system.",
+    headDoctor: "Dr. Daniel Wong",
+    totalDoctors: 3,
+    status: "Active",
   },
-  {
-    name: "Orthopedics",
-    description:
-      "Our orthopedics department specializes in the diagnosis and treatment of bone, joint, and muscle conditions, from fractures to chronic musculoskeletal diseases.",
-  },
-];
+]

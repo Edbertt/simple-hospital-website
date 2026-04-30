@@ -1,5 +1,7 @@
 import { services, doctors } from "./data";
 import ServiceCard from "@/component/service-cards/ServiceCard";
+import Link from "next/link"
+
 
 export default function Home() {
   return (
@@ -163,9 +165,12 @@ export default function Home() {
                 {doctor.name}
               </h4>
               <p className="mt-2 text-slate-600">{doctor.specialty}</p>
-              <button className="mt-6 rounded-xl bg-sky-700 px-5 py-2 font-medium text-white hover:bg-sky-800">
+              <Link
+                href={`/doctor/${doctor.id}`}
+                className="mt-6 inline-block rounded-xl bg-sky-700 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-sky-800"
+              >
                 View Profile
-              </button>
+              </Link>
             </div>
           ))}
         </div>

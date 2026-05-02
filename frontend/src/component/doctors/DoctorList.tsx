@@ -1,8 +1,8 @@
 import Link from "next/link"
-import { doctors } from "@/app/data"
+// import { doctors } from "@/app/data"
 
-export default async function DoctorList() {
-  await new Promise((resolve) => setTimeout(resolve, 1500))
+export default function DoctorList({ doctors }) {
+  // await new Promise((resolve) => setTimeout(resolve, 1500))
 
   return (
     <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">

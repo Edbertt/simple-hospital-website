@@ -20,7 +20,7 @@ export default function DoctorList({ doctors }) {
               <h3 className="text-xl font-semibold text-slate-900">
                 {doctor.name}
               </h3>
-              <p className="text-sm text-sky-700">{doctor.specialty}</p>
+              <p className="text-sm text-sky-700">{doctor.speciality_caption}</p>
             </div>
           </div>
 

@@ -5,13 +5,21 @@ import { useState } from "react"
 import DoctorList from "@/component/doctors/DoctorList"
 import DoctorListSkeleton from "@/component/preloader/DoctorListSkeleton"
 import { doctors } from '@/app/data'
+import {useQuery} from "@tanstack/react-query";
+import apiRouter from "@/api/router";
 
 export default function DoctorsPage() {
+  const { data } = useQuery({
+    queryKey: ['getDoctors'],
+    queryFn: apiRouter.doctors.getDoctors,
+  })
+
+  console.log(data)
   // await new Promise((resolve) => setTimeout(resolve, 1000))
 
   const [search, setSearch] = useState("")
 
-  const filteredDoctors = doctors.filter((doctor) => {
+  const filteredDoctors = (data ?? []).filter((doctor) => {
     const keyword = search.toLowerCase().trim()
     return (
       doctor.name.toLowerCase().includes(keyword) ||

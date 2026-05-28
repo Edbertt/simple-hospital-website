@@ -1,7 +1,20 @@
+'use client'
+
 import Link from "next/link"
 import { doctors } from "@/app/data"
+import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
+import apiRouter from "@/api/router";
+import { useRouter } from "next/navigation"
 
 export default function AdminDoctorsPage() {
+  const router = useRouter()
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery({
+    queryKey: ['getDoctors'],
+    queryFn: apiRouter.doctors.getDoctors,
+  })
+
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-10 text-slate-800">
       <div className="mx-auto max-w-7xl">
@@ -18,9 +31,9 @@ export default function AdminDoctorsPage() {
             </p>
           </div>
 
-          <button className="rounded-xl bg-sky-700 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-sky-800">
+          <Link href="/administrator/doctors/add" className="rounded-xl bg-sky-700 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-sky-800">
             + Add Doctor
-          </button>
+          </Link>
         </div>
 
         <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -38,7 +51,6 @@ export default function AdminDoctorsPage() {
                   <th className="px-6 py-4 font-semibold">Specialty</th>
                   <th className="px-6 py-4 font-semibold">Department</th>
                   <th className="px-6 py-4 font-semibold">Experience</th>
-                  <th className="px-6 py-4 font-semibold">Status</th>
                   <th className="px-6 py-4 text-right font-semibold">
                     Actions
                   </th>
@@ -46,7 +58,7 @@ export default function AdminDoctorsPage() {
               </thead>
 
               <tbody className="divide-y divide-slate-200">
-                {doctors.map((doctor) => (
+                {data?.map((doctor) => (
                   <tr key={doctor.id} className="hover:bg-slate-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
@@ -65,21 +77,16 @@ export default function AdminDoctorsPage() {
                     </td>
 
                     <td className="px-6 py-4 text-slate-600">
-                      {doctor.specialty}
+                      {doctor.speciality_caption}
                     </td>
 
                     <td className="px-6 py-4 text-slate-600">
-                      {doctor.department}
+                      {doctor.department_name}
                     </td>
 
                     <td className="px-6 py-4 text-slate-600">
                       {doctor.experience}
-                    </td>
-
-                    <td className="px-6 py-4">
-                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
-                        Active
-                      </span>
+                      {" year"}
                     </td>
 
                     <td className="px-6 py-4 text-right">

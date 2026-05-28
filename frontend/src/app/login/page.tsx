@@ -9,7 +9,6 @@ import apiRouter from "@/api/router";
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
   const loginMutation = useMutation({
@@ -21,7 +20,7 @@ export default function LoginPage() {
     onSuccess: (data) => {
       // Save JWT token for future requests
       localStorage.setItem("token", data.token)
-      setError(null)
+      alert("Login Successful!")
       // Redirect to a protected page (dashboard, home, etc.)
       if (data.user.type_id === 1) {
         router.push("/administrator/dashboard")
@@ -31,7 +30,7 @@ export default function LoginPage() {
     },
     onError: (err: any) => {
       // Show error from Rails or generic message
-      setError(err.response?.data?.error || "Login failed")
+      alert("Login failed")
     },
   })
 
@@ -78,8 +77,6 @@ export default function LoginPage() {
               required
             />
           </div>
-
-          {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button
             type="submit"

@@ -40,6 +40,10 @@ class DoctorsController < ApplicationController
     @doctor.destroy!
   end
 
+  def specialities
+    render json: Doctor::SPECIALITY_TYPES
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_doctor
@@ -48,6 +52,6 @@ class DoctorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def doctor_params
-      params.fetch(:doctor, {})
+      params.require(:doctor).permit(:name, :speciality_id, :department_id, :experience)
     end
 end

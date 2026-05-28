@@ -10,8 +10,6 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
 
   const registerMutation = useMutation({
     mutationFn: () =>
@@ -24,20 +22,18 @@ export default function RegisterPage() {
     onSuccess: (data) => {
       // store the token for authenticated requests
       localStorage.setItem("token", data.token)
-      setSuccess("Account created successfully!")
-      setError(null)
+      alert('Account created successfully!')
     },
     onError: (err: any) => {
       // handle errors
-      setError(err.response?.data?.errors?.join(", ") || "Registration failed")
-      setSuccess(null)
+      alert("Registration failed!")
     },
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (password !== passwordConfirmation) {
-      setError("Passwords do not match")
+      alert("Password do not match!")
       return
     }
     registerMutation.mutate()
@@ -105,9 +101,6 @@ export default function RegisterPage() {
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
           </div>
-
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          {success && <p className="text-green-500 text-sm">{success}</p>}
 
           <button
             type="submit"

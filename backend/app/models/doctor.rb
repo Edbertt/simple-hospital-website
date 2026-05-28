@@ -4,6 +4,8 @@ class Doctor < ApplicationRecord
     validates :department_id, presence: true
     validates :experience, numericality: { greater_than_or_equal_to: 0}
 
+    belongs_to :department
+
     SPECIALITY_TYPES = {
         1 => 'Cardiologist',
         2 => 'Pediatrician',
@@ -15,5 +17,9 @@ class Doctor < ApplicationRecord
 
     def speciality_caption
         SPECIALITY_TYPES[self.speciality_id.to_i]
+    end
+
+    def department_name
+        Department::DEPARTMENT_TYPES[self.department_id.to_i]
     end
 end

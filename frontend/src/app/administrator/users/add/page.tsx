@@ -1,19 +1,18 @@
 'use client'
 
 import { useState } from "react"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import apiRouter from "@/api/router"
 import { useRouter } from "next/navigation"
 
 export default function AdminAddUserPage() {
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [type_id, setTypeId] = useState("Patient")
   const [password, setPassword] = useState("")
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
 
   // Mutation to create a new user
   const addUserMutation = useMutation({
@@ -25,15 +24,12 @@ export default function AdminAddUserPage() {
         password,
       }),
     onSuccess: () => {
-      setSuccess("User created successfully!")
-      setError(null)
+      alert("User Created Successfully!")
+      queryClient.invalidateQueries({queryKey: ["getUsers"]})
       router.push("/administrator/users")
     },
     onError: (err: any) => {
-      setError(
-        err.response?.data?.errors?.join(", ") || "Failed to create user"
-      )
-      setSuccess(null)
+      alert("Failed to craete user!")
     },
   })
 
@@ -101,9 +97,6 @@ export default function AdminAddUserPage() {
               required
             />
           </div>
-
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          {success && <p className="text-green-500 text-sm">{success}</p>}
 
           <button
             type="submit"

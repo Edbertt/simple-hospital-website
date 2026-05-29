@@ -1,6 +1,32 @@
+'use client'
+
+import Link from "next/link";
 import { departments } from "@/app/data"
+import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
+import apiRouter from "@/api/router";
+import { useRouter } from "next/navigation"
 
 export default function AdminDepartmentsPage() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery({
+    queryKey: ['getDepartments'],
+    queryFn: apiRouter.departments.getDepartments,
+  })
+
+  const deleteDepartmentMutation = useMutation({
+    mutationFn: (id: number) => apiRouter.departments.deleteDepartment(id),
+    onSuccess: () => {
+      alert("Department deleted successfully")
+      queryClient.invalidateQueries({queryKey: ['getDepartments']})
+      router.push("/administrator/departments")
+    },
+    onError: () => {
+      alert("Failed to delete department!")
+    }
+  })
+
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-10 text-slate-800">
       <div className="mx-auto max-w-7xl">
@@ -17,13 +43,16 @@ export default function AdminDepartmentsPage() {
             </p>
           </div>
 
-          <button className="rounded-xl bg-sky-700 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-sky-800">
+          <Link 
+              href="/administrator/departments/add"
+              className="rounded-xl bg-sky-700 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-sky-800"
+          >
             + Add Department
-          </button>
+          </Link>
         </div>
 
         <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {departments.map((department) => (
+          {data?.map((department) => (
             <div
               key={department.id}
               className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
@@ -38,9 +67,9 @@ export default function AdminDepartmentsPage() {
                   </p>
                 </div>
 
-                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
+                {/* <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
                   {department.status}
-                </span>
+                </span> */}
               </div>
 
               <div className="mt-6 space-y-3 rounded-xl bg-slate-50 p-4 text-sm text-slate-600">
@@ -48,21 +77,29 @@ export default function AdminDepartmentsPage() {
                   <span className="font-semibold text-slate-800">
                     Head Doctor:
                   </span>{" "}
-                  {department.headDoctor}
+                  {department.head_doctor_name}
                 </p>
                 <p>
                   <span className="font-semibold text-slate-800">
                     Total Doctors:
                   </span>{" "}
-                  {department.totalDoctors}
+                  {department.total_doctor}
                 </p>
               </div>
 
               <div className="mt-6 flex gap-2">
-                <button className="flex-1 rounded-xl bg-sky-700 px-4 py-2.5 text-sm font-medium text-white hover:bg-sky-800">
+                <Link href={`/administrator/departments/edit/${department.id}`} className="flex-1 rounded-xl bg-sky-700 px-4 py-2.5 text-sm font-medium text-white hover:bg-sky-800">
                   Edit
-                </button>
-                <button className="flex-1 rounded-xl bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-100">
+                </Link>
+                <button 
+                  type="button"
+                  className="flex-1 rounded-xl bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-100"
+                  onClick={() => {
+                    if (confirm("Are you sure you want to delete this department?")) {
+                      deleteDepartmentMutation.mutate(department.id)
+                    }
+                  }}
+                  >
                   Delete
                 </button>
               </div>

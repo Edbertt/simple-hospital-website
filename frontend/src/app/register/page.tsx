@@ -1,6 +1,44 @@
+'use client'
+
 import Link from "next/link"
+import { useState } from "react"
+import { useMutation } from "@tanstack/react-query"
+import apiRouter from "@/api/router";
 
 export default function RegisterPage() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState("")
+
+  const registerMutation = useMutation({
+    mutationFn: () =>
+      apiRouter.users.register({
+        name,
+        email,
+        password,
+        password_confirmation: passwordConfirmation,
+      }),
+    onSuccess: (data) => {
+      // store the token for authenticated requests
+      localStorage.setItem("token", data.token)
+      alert('Account created successfully!')
+    },
+    onError: (err: any) => {
+      // handle errors
+      alert("Registration failed!")
+    },
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (password !== passwordConfirmation) {
+      alert("Password do not match!")
+      return
+    }
+    registerMutation.mutate()
+  }
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-sky-50 px-6 py-16">
       <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -11,7 +49,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <form className="mt-8 space-y-5">
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
           <div>
             <label className="text-sm font-medium text-slate-700">
               Full Name
@@ -19,7 +57,9 @@ export default function RegisterPage() {
             <input
               type="text"
               placeholder="Enter your full name"
-              className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              className="mt-2 w-full text-black rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -30,7 +70,9 @@ export default function RegisterPage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              className="mt-2 w-full text-black rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -41,7 +83,9 @@ export default function RegisterPage() {
             <input
               type="password"
               placeholder="Create a password"
-              className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              className="mt-2 w-full text-black rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -52,15 +96,18 @@ export default function RegisterPage() {
             <input
               type="password"
               placeholder="Confirm your password"
-              className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              className="mt-2 w-full text-black rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+              value={passwordConfirmation}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
           </div>
 
           <button
             type="submit"
             className="w-full rounded-xl bg-sky-700 px-4 py-3 font-semibold text-white shadow hover:bg-sky-800"
+            disabled={registerMutation.isLoading}
           >
-            Register
+            {registerMutation.isLoading ? "Registering..." : "Register"}
           </button>
         </form>
 

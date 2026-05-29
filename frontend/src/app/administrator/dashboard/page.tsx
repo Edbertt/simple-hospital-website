@@ -70,14 +70,14 @@ export default function AdminDashboardPage() {
 
             <div className="mt-6 space-y-3">
               <a
-                href="/admin/doctors"
+                href="/administrator/doctors"
                 className="block rounded-xl bg-sky-700 px-4 py-3 text-center font-semibold text-white hover:bg-sky-800"
               >
                 Manage Doctors
               </a>
 
               <a
-                href="/admin/departments"
+                href="/administrator/departments"
                 className="block rounded-xl border border-slate-300 px-4 py-3 text-center font-semibold text-slate-700 hover:bg-slate-50"
               >
                 Manage Departments

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :appointments, defaults: { format: 'json' }
   resources :departments, defaults: { format: 'json' }
   resources :users, defaults: { format: 'json' }
   get "/me", to: "users#me"
